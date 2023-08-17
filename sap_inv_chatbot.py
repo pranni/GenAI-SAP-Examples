@@ -45,7 +45,7 @@ if "messages" not in st.session_state.keys():
 
 
 # Instantiate VertexAI / chat-bison@001 model with context and Example Inputs/Outputs
-vertexai.init(project="pranavc-testenv1", location="us-central1")    # Update with your User and Project
+vertexai.init(project="YOUR GCP PROJECT", location="us-central1")    # Update with your User and Project
 chat_model = ChatModel.from_pretrained("chat-bison@001")
 parameters = {
     "temperature": 0.2,
@@ -117,7 +117,7 @@ def fetch_inventory_data(mod_resp):
 
      SERVICE_URL = SERVICE_URL_BASE + f"{mod_resp['function']}({param})?$format=json"
 
-     response = requests.get(SERVICE_URL,auth = ('BPINST', 'Welcome1'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
+     response = requests.get(SERVICE_URL,auth = ('SAP USER', 'PASSWORD'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
      if response.status_code == 200:
         output_json = response.json()['d']
         if output_json['message'] == "":
@@ -132,7 +132,7 @@ def fetch_material_movement(mod_resp):
      param= mod_resp['parameters'].replace(' ','%20')
 
      SERVICE_URL = SERVICE_URL_BASE + f"{mod_resp['function']}?$filter={param}&$format=json" #({param})?$format=json"
-     response = requests.get(SERVICE_URL,auth = ('BPINST', 'Welcome1'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
+     response = requests.get(SERVICE_URL,auth = ('SAP USER', 'PASSWORD'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
      if response.status_code == 200:
         output = response.json()['d']['results']
      else: 
@@ -153,7 +153,7 @@ def create_purchase_order(mod_resp):
 
      SERVICE_URL = SERVICE_URL_BASE + f"{mod_resp['function']}({param})?$format=json"
 
-     response = requests.get(SERVICE_URL,auth = ('BPINST', 'Welcome1'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
+     response = requests.get(SERVICE_URL,auth = ('SAP USER', 'PASSWORD'), headers = {"Prefer": "odata.maxpagesize=500","Prefer": "odata.track-changes"})
      if response.status_code == 200:
         output = response.json()['d']['message']
      else:
